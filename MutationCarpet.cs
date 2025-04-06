@@ -15,6 +15,8 @@ namespace miw_genetic_alg
         public static int populationSize = 19;
         public static int tournamentSize = Math.Max(2, (int)(0.1 * populationSize));
 
+        public static Action<string> Output = (string _) => { };
+
         public static int maxIterations = 20;
 
         public static Dictionary<byte[], double> decodeDictionary = Common.CreateDecodeTable(minFitness, maxFitness, bitsPerParameter);
@@ -50,14 +52,14 @@ namespace miw_genetic_alg
                 var bestFitness = fitness.Max();
                 var avgFitness = fitness.Average();
 
-                MessageBox.Show($"Iteracja {iteration}: Najlepsza wartość = {bestFitness:F4}, Średnia wartość = {avgFitness:F4}");
+                Output($"Iteracja {iteration}: Najlepsza wartość = {bestFitness:F4}, Średnia wartość = {avgFitness:F4}");
 
                 byte[][] newPopulation = [];
 
                 for (int j = 0; j < populationSize - 1; j++)
                 {
                     var entity = Common.TournamentSelect(population, fitness, tournamentSize);
-                    Common.MutateRandom(ref entity);
+                    Common.MutateRandom(ref entity, parameters, bitsPerParameter);
                     newPopulation = newPopulation.Append(entity).ToArray();
                 }
 

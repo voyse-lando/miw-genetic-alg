@@ -6,6 +6,29 @@ using System.Threading.Tasks;
 
 namespace miw_genetic_alg
 {
+    public class ArrayEqualityComparer : IEqualityComparer<byte[]>
+    {
+        public bool Equals(byte[] x, byte[] y)
+        {
+            if (x.Length != y.Length) return false;
+            for (int i = 0; i < x.Length; i++)
+            {
+                if (x[i] != y[i]) return false;
+            }
+            return true;
+        }
+
+        public int GetHashCode(byte[] obj)
+        {
+            int hash = 17;
+            foreach (int item in obj)
+            {
+                hash = hash * 31 + item.GetHashCode();
+            }
+            return hash;
+        }
+    }
+
     public static class Common
     {
         private static Random random = new Random();
@@ -62,9 +85,9 @@ namespace miw_genetic_alg
             return (byte[])population[best].Clone();
         }
 
-        public static void MutateRandom(ref byte[] entity)
+        public static void MutateRandom(ref byte[] entity, int parameters, int bitsPerParameter)
         {
-            var mutationIndex = random.Next(Constants.bitsPerEntity);
+            var mutationIndex = random.Next(parameters * bitsPerParameter);
             entity[mutationIndex] = (byte)(entity[mutationIndex] ^ 1);
         }
 
