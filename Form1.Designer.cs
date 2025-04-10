@@ -53,6 +53,13 @@
             sinStep = new Button();
             sinReset = new Button();
             output2 = new TextBox();
+            tabPage3 = new TabPage();
+            groupBox2 = new GroupBox();
+            xorAuto = new Button();
+            xorReset = new Button();
+            output3 = new TextBox();
+            label7 = new Label();
+            xorIterNum = new NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)populationNumeric).BeginInit();
             groupBox1.SuspendLayout();
             panel1.SuspendLayout();
@@ -64,6 +71,9 @@
             ((System.ComponentModel.ISupportInitialize)sinIterNum).BeginInit();
             ((System.ComponentModel.ISupportInitialize)sinBppNum).BeginInit();
             ((System.ComponentModel.ISupportInitialize)sinPopNum).BeginInit();
+            tabPage3.SuspendLayout();
+            groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)xorIterNum).BeginInit();
             SuspendLayout();
             // 
             // populationNumeric
@@ -201,6 +211,7 @@
             // 
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
+            tabControl1.Controls.Add(tabPage3);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
@@ -342,6 +353,84 @@
             output2.Size = new Size(684, 284);
             output2.TabIndex = 7;
             // 
+            // tabPage3
+            // 
+            tabPage3.Controls.Add(groupBox2);
+            tabPage3.Location = new Point(4, 24);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Size = new Size(702, 437);
+            tabPage3.TabIndex = 2;
+            tabPage3.Text = "XOR";
+            tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox2.BackgroundImageLayout = ImageLayout.Center;
+            groupBox2.Controls.Add(xorAuto);
+            groupBox2.Controls.Add(xorReset);
+            groupBox2.Controls.Add(output3);
+            groupBox2.Controls.Add(label7);
+            groupBox2.Controls.Add(xorIterNum);
+            groupBox2.Location = new Point(0, 1);
+            groupBox2.Margin = new Padding(20);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(702, 434);
+            groupBox2.TabIndex = 3;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Magiczny dywanik";
+            // 
+            // xorAuto
+            // 
+            xorAuto.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            xorAuto.Location = new Point(244, 405);
+            xorAuto.Name = "xorAuto";
+            xorAuto.Size = new Size(452, 23);
+            xorAuto.TabIndex = 9;
+            xorAuto.Text = "Auto";
+            xorAuto.UseVisualStyleBackColor = true;
+            xorAuto.Click += xorAuto_Click;
+            // 
+            // xorReset
+            // 
+            xorReset.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            xorReset.Location = new Point(4, 405);
+            xorReset.Name = "xorReset";
+            xorReset.Size = new Size(234, 23);
+            xorReset.TabIndex = 8;
+            xorReset.Text = "Reset";
+            xorReset.UseVisualStyleBackColor = true;
+            // 
+            // output3
+            // 
+            output3.AcceptsReturn = true;
+            output3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            output3.Location = new Point(9, 75);
+            output3.Multiline = true;
+            output3.Name = "output3";
+            output3.ReadOnly = true;
+            output3.ScrollBars = ScrollBars.Vertical;
+            output3.Size = new Size(684, 324);
+            output3.TabIndex = 7;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(8, 36);
+            label7.Name = "label7";
+            label7.Size = new Size(45, 15);
+            label7.TabIndex = 6;
+            label7.Text = "Iteracje";
+            // 
+            // xorIterNum
+            // 
+            xorIterNum.Location = new Point(59, 34);
+            xorIterNum.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            xorIterNum.Name = "xorIterNum";
+            xorIterNum.Size = new Size(120, 23);
+            xorIterNum.TabIndex = 5;
+            xorIterNum.ValueChanged += xorIterNum_ValueChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -366,6 +455,10 @@
             ((System.ComponentModel.ISupportInitialize)sinIterNum).EndInit();
             ((System.ComponentModel.ISupportInitialize)sinBppNum).EndInit();
             ((System.ComponentModel.ISupportInitialize)sinPopNum).EndInit();
+            tabPage3.ResumeLayout(false);
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)xorIterNum).EndInit();
             ResumeLayout(false);
         }
 
@@ -396,5 +489,12 @@
         private Button sinStep;
         private Button sinReset;
         private TextBox output2;
+        private TabPage tabPage3;
+        private GroupBox groupBox2;
+        private Button xorAuto;
+        private Button xorReset;
+        private TextBox output3;
+        private Label label7;
+        private NumericUpDown xorIterNum;
     }
 }

@@ -15,6 +15,7 @@ namespace miw_genetic_alg
             sinPopNum.Value = Sinus.populationSize;
             sinBppNum.Value = Sinus.bitsPerParameter;
             sinIterNum.Value = Sinus.maxIterations;
+            xorIterNum.Value = XOR.maxIterations;
 
             MutationCarpet.Output = (string data) =>
             {
@@ -26,9 +27,15 @@ namespace miw_genetic_alg
                 output2.AppendText(data);
                 output2.AppendText(Environment.NewLine);
             };
+            XOR.Output = (string data) =>
+            {
+                output3.AppendText(data);
+                output3.AppendText(Environment.NewLine);
+            };
 
             output1.Clear();
             output2.Clear();
+            output3.Clear();
         }
 
         private void populationNumeric_ValueChanged(object sender, EventArgs e)
@@ -76,6 +83,16 @@ namespace miw_genetic_alg
         {
             Sinus.decodeDictionary = Common.CreateDecodeTable(Sinus.minFitness, Sinus.maxFitness, Sinus.bitsPerParameter);
             Sinus.GeneticAlgorithm();
+        }
+
+        private void xorIterNum_ValueChanged(object sender, EventArgs e)
+        {
+            XOR.maxIterations = (int)sinIterNum.Value;
+        }
+
+        private void xorAuto_Click(object sender, EventArgs e)
+        {
+            XOR.GeneticAlgorithm();
         }
     }
 }
