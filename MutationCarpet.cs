@@ -42,6 +42,17 @@ namespace miw_genetic_alg
             return fitness;
         }
 
+        public static byte[] BestEntity(byte[][] population, double[] fitness)
+        {
+            int bestIdx = 0;
+            for (int i = 1; i < population.Length; ++i)
+            {
+                if (fitness[bestIdx] < fitness[i]) bestIdx = i;
+            }
+
+            return (byte[])population[bestIdx].Clone();
+        }
+
         public static (double, double, double) GeneticAlgorithm()
         {
             var population = Common.CreatePopulation(populationSize, parameters, bitsPerParameter);
@@ -58,12 +69,17 @@ namespace miw_genetic_alg
 
                 for (int j = 0; j < populationSize - 1; j++)
                 {
-                    var entity = Common.TournamentSelect(population, fitness, tournamentSize);
+                    var entity = Common.TournamentSelect(
+                        population,
+                        fitness,
+                        tournamentSize,
+                        (long[] tournament, double[] fitness) => tournament.MaxBy(fitness.GetValue)
+                    );
                     Common.MutateRandom(ref entity, parameters, bitsPerParameter);
                     newPopulation = newPopulation.Append(entity).ToArray();
                 }
 
-                var bestEntity = Common.BestEntity(population, fitness);
+                var bestEntity = BestEntity(population, fitness);
                 newPopulation = newPopulation.Append(bestEntity).ToArray();
 
                 population = newPopulation;

@@ -71,7 +71,12 @@ namespace miw_genetic_alg
             return entity.Take(new Range(idx * bitsPerParameter, (idx + 1) * bitsPerParameter)).ToArray();
         }
 
-        public static byte[] TournamentSelect(byte[][] population, double[] fitness, int tournamentSize)
+        public static byte[] TournamentSelect(
+            byte[][] population,
+            double[] fitness,
+            int tournamentSize,
+            Func<long[], double[], long> evaluator
+        )
         {
             long[] tournament = [];
             for (var i = 0; i < tournamentSize; ++i)
@@ -81,25 +86,26 @@ namespace miw_genetic_alg
                 tournament = tournament.Append(index).ToArray();
             }
 
-            long best = tournament.MaxBy(fitness.GetValue);
+            long best = evaluator(tournament, fitness);
             return (byte[])population[best].Clone();
+        }
+
+        public static (byte[] child1, byte[] child2) Crossover(byte[] parent1, byte[] parent2)
+        {
+            var point = random.Next(parent1.Length);
+            var left = new Range(0, point);
+            var right = new Range(point, parent1.Length);
+
+            byte[] child1 = [.. parent1.Take(left), .. parent2.Take(right)];
+            byte[] child2 = [.. parent2.Take(left), .. parent1.Take(right)];
+
+            return (child1, child2);
         }
 
         public static void MutateRandom(ref byte[] entity, int parameters, int bitsPerParameter)
         {
             var mutationIndex = random.Next(parameters * bitsPerParameter);
             entity[mutationIndex] = (byte)(entity[mutationIndex] ^ 1);
-        }
-
-        public static byte[] BestEntity(byte[][] population, double[] fitness)
-        {
-            int bestIdx = 0;
-            for (int i = 0; i < population.Length; ++i)
-            {
-                if (fitness[bestIdx] < fitness[i]) bestIdx = i;
-            }
-
-            return (byte[])population[bestIdx].Clone();
         }
     }
 }
